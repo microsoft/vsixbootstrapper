@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26120.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VSIXBootstrapper", "src\VSIXBootstrapper\VSIXBootstrapper.vcxproj", "{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3A5D9917-703F-4280-81ED-F2E2BA648CB8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{168CF38F-E3C9-43E1-BEC9-101BC97E926F}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Debug|x86.ActiveCfg = Debug|Win32
+		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Debug|x86.Build.0 = Debug|Win32
+		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Release|x86.ActiveCfg = Release|Win32
+		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067} = {3A5D9917-703F-4280-81ED-F2E2BA648CB8}
+	EndGlobalSection
+EndGlobal
