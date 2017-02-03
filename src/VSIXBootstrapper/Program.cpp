@@ -56,9 +56,10 @@ int WINAPI wWinMain(
             path path = lookup();
             if (!path.empty() && exists(path.append(g_wszFileName)))
             {
-                // TODO
-                ::MessageBoxW(NULL, path.c_str(), L"VSIX Bootstrapper", MB_ICONINFORMATION);
-                return ERROR_SUCCESS;
+                Process p(nCmdShow, path.c_str(), lpCmdLine);
+                p.Wait();
+
+                return p.GetExitCode();
             }
         }
 

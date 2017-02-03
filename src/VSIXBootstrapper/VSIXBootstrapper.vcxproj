@@ -90,6 +90,7 @@
     <ClInclude Include="CoInitializer.h" />
     <ClInclude Include="CommandLine.h" />
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Process.h" />
     <ClInclude Include="RegistryKey.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Resources.h" />
@@ -98,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CommandLine.cpp" />
+    <ClCompile Include="Process.cpp" />
     <ClCompile Include="RegistryKey.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -35,6 +35,7 @@
 #include "Exceptions.h"
 #include "CoInitializer.h"
 #include "CommandLine.h"
+#include "Process.h"
 #include "RegistryKey.h"
 #include "Resource.h"
 #include "Resources.h"
