@@ -23,6 +23,8 @@
       <_VersionInfoFile>$(IntermediateOutputPath)VersionInfo.h</_VersionInfoFile>
     </PropertyGroup>
     <Message Text="Generating header &quot;$(_VersionInfoFile)&quot;."/>
+    <Message Text="File version: $(FileVersion)"/>
+    <Message Text="Product version: $(PackageVersion)"/>
     <ItemGroup>
       <_VersionInfoFile Include="$(_VersionInfoFile)"/>
       <_VersionInfoLines Include="
