@@ -18,28 +18,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pkg", "pkg", "{8EB71D2B-70C
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "VSIXBootstrapper", "pkg\VSIXBootstrapper\VSIXBootstrapper.nuproj", "{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VSIXBootstrapper.Shared", "src\VSIXBootstrapper.Shared\VSIXBootstrapper.Shared.vcxitems", "{2A3EA4C8-207C-4AB4-A74F-4640A529767E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{79F3BEAF-FBD2-4E77-8A47-CA8D12A478F4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VSIXBootstrapper.Test", "test\VSIXBootstrapper.Test\VSIXBootstrapper.Test.vcxproj", "{EEADDAC3-DDD5-4A28-BB13-B3B76682C1E1}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\VSIXBootstrapper.Shared\VSIXBootstrapper.Shared.vcxitems*{22ffc1ab-f3e2-4379-b26e-67d67e2a1067}*SharedItemsImports = 4
+		src\VSIXBootstrapper.Shared\VSIXBootstrapper.Shared.vcxitems*{2a3ea4c8-207c-4ab4-a74f-4640a529767e}*SharedItemsImports = 9
+		src\VSIXBootstrapper.Shared\VSIXBootstrapper.Shared.vcxitems*{eeaddac3-ddd5-4a28-bb13-b3b76682c1e1}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Debug|x86.ActiveCfg = Debug|Win32
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Debug|x86.Build.0 = Debug|Win32
-		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Release|Any CPU.ActiveCfg = Release|Win32
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Release|x86.ActiveCfg = Release|Win32
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Release|x86.Build.0 = Release|Win32
-		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Debug|x86.Build.0 = Debug|Any CPU
-		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Release|x86.ActiveCfg = Release|Any CPU
 		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Release|x86.Build.0 = Release|Any CPU
+		{EEADDAC3-DDD5-4A28-BB13-B3B76682C1E1}.Debug|x86.ActiveCfg = Debug|Win32
+		{EEADDAC3-DDD5-4A28-BB13-B3B76682C1E1}.Debug|x86.Build.0 = Debug|Win32
+		{EEADDAC3-DDD5-4A28-BB13-B3B76682C1E1}.Release|x86.ActiveCfg = Release|Win32
+		{EEADDAC3-DDD5-4A28-BB13-B3B76682C1E1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,5 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067} = {3A5D9917-703F-4280-81ED-F2E2BA648CB8}
 		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB} = {8EB71D2B-70CF-418B-9EE8-9B3BE2EE2D9B}
+		{2A3EA4C8-207C-4AB4-A74F-4640A529767E} = {3A5D9917-703F-4280-81ED-F2E2BA648CB8}
+		{EEADDAC3-DDD5-4A28-BB13-B3B76682C1E1} = {79F3BEAF-FBD2-4E77-8A47-CA8D12A478F4}
 	EndGlobalSection
 EndGlobal

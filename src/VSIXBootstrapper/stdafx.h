@@ -39,6 +39,7 @@
 #include "RegistryKey.h"
 #include "Resource.h"
 #include "Resources.h"
+#include "VSIXBootstrapper.h"
 
 // Type definitions
 _COM_SMARTPTR_TYPEDEF(ISetupConfiguration2, __uuidof(ISetupConfiguration2));
