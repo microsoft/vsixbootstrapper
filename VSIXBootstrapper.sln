@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26120.4
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VSIXBootstrapper", "src\VSIXBootstrapper\VSIXBootstrapper.vcxproj", "{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}"
 EndProject
@@ -9,24 +9,42 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3A5D9917-703
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{168CF38F-E3C9-43E1-BEC9-101BC97E926F}"
 	ProjectSection(SolutionItems) = preProject
+		CONTRIBUTING.md = CONTRIBUTING.md
 		LICENSE.txt = LICENSE.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pkg", "pkg", "{8EB71D2B-70CF-418B-9EE8-9B3BE2EE2D9B}"
+EndProject
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "VSIXBootstrapper", "pkg\VSIXBootstrapper\VSIXBootstrapper.nuproj", "{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Debug|x86.ActiveCfg = Debug|Win32
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Debug|x86.Build.0 = Debug|Win32
+		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Release|Any CPU.ActiveCfg = Release|Win32
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Release|x86.ActiveCfg = Release|Win32
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}.Release|x86.Build.0 = Release|Win32
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Debug|x86.Build.0 = Debug|Any CPU
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Release|x86.ActiveCfg = Release|Any CPU
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{22FFC1AB-F3E2-4379-B26E-67D67E2A1067} = {3A5D9917-703F-4280-81ED-F2E2BA648CB8}
+		{8704FCB5-C4CA-4015-81AA-6B3AA577B3FB} = {8EB71D2B-70CF-418B-9EE8-9B3BE2EE2D9B}
 	EndGlobalSection
 EndGlobal
