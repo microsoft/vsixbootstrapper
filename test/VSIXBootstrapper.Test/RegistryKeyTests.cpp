@@ -187,7 +187,7 @@ public:
 
                 if (lpData)
                 {
-                    wcsncpy((LPWSTR)lpData, wsz, cch);
+                    wcscpy_s((LPWSTR)lpData, cch, wsz);
                 }
 
                 return ERROR_SUCCESS;

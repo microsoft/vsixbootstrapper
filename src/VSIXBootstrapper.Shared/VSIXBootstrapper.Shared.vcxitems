@@ -22,7 +22,4 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)RegistryKey.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resources.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)VSIXBootstrapper.cpp" />
-  </ItemGroup>
 </Project>
