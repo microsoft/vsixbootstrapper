@@ -12,7 +12,7 @@ param (
 
     [Parameter()]
     [ValidateNotNullOrEmpty()]
-    [string] $Tag = $env:BUILD_SOURCEVERSION,
+    [string] $Tag = $env:BUILD_BUILDNUMBER,
 
     [Parameter()]
     [string] $Commit = $env:BUILD_SOURCEVERSION,
