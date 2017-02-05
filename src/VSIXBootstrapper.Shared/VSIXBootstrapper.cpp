@@ -23,7 +23,7 @@ struct RegDeleter
     }
 };
 
-int Error(_In_ Resources& resources, _In_ bool quiet, _In_ DWORD nError, _In_ DWORD nID, ...);
+int Error(_In_ Resources<>& resources, _In_ bool quiet, _In_ DWORD nError, _In_ DWORD nID, ...);
 wstring FromConfiguration() noexcept;
 wstring FromRegistry(_In_ LPCWSTR wszVersion) noexcept;
 
@@ -32,7 +32,7 @@ int Run(
     _In_ LPWSTR lpCmdLine,
     _In_ int nCmdShow)
 {
-    Resources resources(hInstance);
+    Resources<> resources(hInstance);
     auto quiet = true;
 
     try
@@ -55,7 +55,7 @@ int Run(
             path path = lookup();
             if (!path.empty() && exists(path.append(g_wszFileName)))
             {
-                Process p(nCmdShow, path.c_str(), lpCmdLine);
+                Process<> p(nCmdShow, path.c_str(), lpCmdLine);
                 p.Wait();
 
                 return p.GetExitCode();
@@ -78,7 +78,7 @@ int Run(
     return GENERIC_ERROR;
 }
 
-int Error(_In_ Resources& resources, _In_ bool quiet, _In_ DWORD nError, _In_ DWORD nID, ...)
+int Error(_In_ Resources<>& resources, _In_ bool quiet, _In_ DWORD nError, _In_ DWORD nID, ...)
 {
     if (!quiet)
     {
@@ -158,7 +158,7 @@ wstring FromRegistry(_In_ LPCWSTR wszVersion) noexcept
             throw win32_error(E_UNEXPECTED);
         }
 
-        RegistryKey key(HKEY_LOCAL_MACHINE, wzPath, KEY_QUERY_VALUE | KEY_WOW64_32KEY);
+        RegistryKey<> key(HKEY_LOCAL_MACHINE, wzPath);
         return key.GetString(L"EnvironmentDirectory");
     }
     catch (...)

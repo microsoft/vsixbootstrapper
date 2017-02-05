@@ -10,12 +10,12 @@ struct CommandLineTraits
     static LPWSTR* __cdecl Parse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumArgs)
     {
         return ::CommandLineToArgvW(lpCmdLine, pNumArgs);
-    };
+    }
 
     static HLOCAL __cdecl Free(_In_ HLOCAL hMem)
     {
         return ::LocalFree(hMem);
-    };
+    }
 };
 
 template <class _Traits = CommandLineTraits>

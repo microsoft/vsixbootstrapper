@@ -14,15 +14,15 @@ public:
     {
         ::SetLastError(E_FAIL);
 
-        win32_error ex;
-        Assert::AreEqual<int>(E_FAIL, ex.code().value());
+        win32_error sut;
+        Assert::AreEqual<int>(E_FAIL, sut.code().value());
     }
 
     TEST_METHOD(win32_error_custom)
     {
         ::SetLastError(ERROR_SUCCESS);
 
-        win32_error ex(E_FAIL);
-        Assert::AreEqual<int>(E_FAIL, ex.code().value());
+        win32_error sut(E_FAIL);
+        Assert::AreEqual<int>(E_FAIL, sut.code().value());
     }
 };

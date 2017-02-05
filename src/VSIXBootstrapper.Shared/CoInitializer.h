@@ -10,12 +10,12 @@ struct CoInitializerTraits
     static HRESULT __cdecl Initialize(_In_ LPVOID)
     {
         return ::CoInitialize(NULL);
-    };
+    }
 
     static void __cdecl Uninitialize()
     {
         return ::CoUninitialize();
-    };
+    }
 };
 
 template <class _Traits = CoInitializerTraits>

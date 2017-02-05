@@ -19,7 +19,7 @@ public:
     {
         struct TestTraits
         {
-            static LPWSTR* __cdecl Parse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumArgs)
+            static LPWSTR* __cdecl Parse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumsut)
             {
                 Assert::Fail(L"Unexpected");
                 return NULL;
@@ -32,15 +32,15 @@ public:
             };
         };
 
-        CommandLine<TestTraits> args(NULL);
-        Assert::IsFalse(args.IsQuiet());
+        CommandLine<TestTraits> sut(NULL);
+        Assert::IsFalse(sut.IsQuiet());
     }
 
     TEST_METHOD(CommandLine_Parses_Slash_q)
     {
         {
-            CommandLine<TestTraitsCounted> args(L"ignored /q ignored");
-            Assert::IsTrue(args.IsQuiet());
+            CommandLine<TestTraitsCounted> sut(L"ignored /q ignored");
+            Assert::IsTrue(sut.IsQuiet());
         }
 
         Assert::AreEqual<byte>(2, s_count);
@@ -49,8 +49,8 @@ public:
     TEST_METHOD(CommandLine_Parses_Slash_Quiet)
     {
         {
-            CommandLine<TestTraitsCounted> args(L"ignored /Quiet ignored");
-            Assert::IsTrue(args.IsQuiet());
+            CommandLine<TestTraitsCounted> sut(L"ignored /Quiet ignored");
+            Assert::IsTrue(sut.IsQuiet());
         }
 
         Assert::AreEqual<byte>(2, s_count);
@@ -59,8 +59,8 @@ public:
     TEST_METHOD(CommandLine_Parses_Dash_Q)
     {
         {
-            CommandLine<TestTraitsCounted> args(L"ignored -Q ignored");
-            Assert::IsTrue(args.IsQuiet());
+            CommandLine<TestTraitsCounted> sut(L"ignored -Q ignored");
+            Assert::IsTrue(sut.IsQuiet());
         }
 
         Assert::AreEqual<byte>(2, s_count);
@@ -69,8 +69,8 @@ public:
     TEST_METHOD(CommandLine_Parses_Dash_quiet)
     {
         {
-            CommandLine<TestTraitsCounted> args(L"ignored -quiet ignored");
-            Assert::IsTrue(args.IsQuiet());
+            CommandLine<TestTraitsCounted> sut(L"ignored -quiet ignored");
+            Assert::IsTrue(sut.IsQuiet());
         }
 
         Assert::AreEqual<byte>(2, s_count);
@@ -81,10 +81,10 @@ private:
 
     struct TestTraitsCounted
     {
-        static LPWSTR* __cdecl Parse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumArgs)
+        static LPWSTR* __cdecl Parse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumsut)
         {
             s_count++;
-            return CommandLineTraits::Parse(lpCmdLine, pNumArgs);
+            return CommandLineTraits::Parse(lpCmdLine, pNumsut);
         };
 
         static HLOCAL __cdecl Free(_In_ HLOCAL hMem)
