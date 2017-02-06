@@ -14,7 +14,7 @@ public:
     {
         struct TestTraits
         {
-            static int GetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
+            static int ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 return 0;
             };
@@ -47,7 +47,7 @@ private:
 
     struct TestStringTraits
     {
-        static int GetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
+        static int ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
         {
             ::memcpy(lpBuffer, &m_wsz, sizeof(LPWSTR));
             return wcslen(m_wsz);

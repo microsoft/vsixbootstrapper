@@ -19,13 +19,13 @@ public:
     {
         struct TestTraits
         {
-            static LPWSTR* __cdecl Parse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumsut)
+            static LPWSTR* __cdecl CommandLineParse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumsut)
             {
                 Assert::Fail(L"Unexpected");
                 return NULL;
             };
 
-            static HLOCAL __cdecl Free(_In_ HLOCAL hMem)
+            static HLOCAL __cdecl CommandLineFree(_In_ HLOCAL hMem)
             {
                 Assert::Fail(L"Unexpected");
                 return NULL;
@@ -81,16 +81,16 @@ private:
 
     struct TestTraitsCounted
     {
-        static LPWSTR* __cdecl Parse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumsut)
+        static LPWSTR* __cdecl CommandLineParse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumsut)
         {
             s_count++;
-            return CommandLineTraits::Parse(lpCmdLine, pNumsut);
+            return CommandLineTraits::CommandLineParse(lpCmdLine, pNumsut);
         };
 
-        static HLOCAL __cdecl Free(_In_ HLOCAL hMem)
+        static HLOCAL __cdecl CommandLineFree(_In_ HLOCAL hMem)
         {
             s_count++;
-            return CommandLineTraits::Free(hMem);
+            return CommandLineTraits::CommandLineFree(hMem);
         };
     };
 };

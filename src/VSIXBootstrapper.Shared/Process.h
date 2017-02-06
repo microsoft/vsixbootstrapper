@@ -7,7 +7,7 @@
 
 struct ProcessTraits
 {
-    static BOOL __cdecl Create(
+    static BOOL __cdecl ProcessCreate(
         _In_opt_ LPCWSTR lpApplicationName,
         _Inout_opt_ LPWSTR lpCommandLine,
         _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
@@ -33,17 +33,17 @@ struct ProcessTraits
             lpProcessInformation);
     }
 
-    static DWORD __cdecl Wait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
+    static DWORD __cdecl ProcessWait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
     {
         return ::WaitForSingleObject(hHandle, dwMilliseconds);
     }
 
-    static BOOL __cdecl GetExitCode(_In_ HANDLE hProcess, _Out_ LPDWORD lpExitCode)
+    static BOOL __cdecl ProcessGetExitCode(_In_ HANDLE hProcess, _Out_ LPDWORD lpExitCode)
     {
         return ::GetExitCodeProcess(hProcess, lpExitCode);
     }
 
-    static BOOL __cdecl Close(_In_ HANDLE hObject)
+    static BOOL __cdecl ProcessClose(_In_ HANDLE hObject)
     {
         return ::CloseHandle(hObject);
     }
@@ -64,7 +64,7 @@ public:
         PROCESS_INFORMATION pi = {};
 
         std::wstring commandLine = std::wstring(L"\"") + wszPath + L"\" " + wszCommandLine;
-        if (!_Traits::Create(NULL, (LPWSTR)commandLine.c_str(), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
+        if (!_Traits::ProcessCreate(NULL, (LPWSTR)commandLine.c_str(), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi))
         {
             throw win32_error();
         }
@@ -77,12 +77,12 @@ public:
     {
         if (m_hProcess)
         {
-            _Traits::Close(m_hProcess);
+            _Traits::ProcessClose(m_hProcess);
         }
 
         if (m_hThread)
         {
-            _Traits::Close(m_hThread);
+            _Traits::ProcessClose(m_hThread);
         }
     }
 
@@ -90,7 +90,7 @@ public:
     {
         ThrowIfInvalidHandle();
 
-        _Traits::Wait(m_hProcess, INFINITE);
+        _Traits::ProcessWait(m_hProcess, INFINITE);
     }
 
     DWORD GetExitCode() const
@@ -98,7 +98,7 @@ public:
         ThrowIfInvalidHandle();
 
         DWORD dwExitCode = 0;
-        if (!_Traits::GetExitCode(m_hProcess, &dwExitCode))
+        if (!_Traits::ProcessGetExitCode(m_hProcess, &dwExitCode))
         {
             throw win32_error();
         }

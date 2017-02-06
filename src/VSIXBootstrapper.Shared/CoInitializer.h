@@ -7,12 +7,12 @@
 
 struct CoInitializerTraits
 {
-    static HRESULT __cdecl Initialize(_In_ LPVOID)
+    static HRESULT __cdecl CoInitialize(_In_ LPVOID)
     {
         return ::CoInitialize(NULL);
     }
 
-    static void __cdecl Uninitialize()
+    static void __cdecl CoUninitialize()
     {
         return ::CoUninitialize();
     }
@@ -24,7 +24,7 @@ class CoInitializer
 public:
     CoInitializer()
     {
-        auto hr = _Traits::Initialize(NULL);
+        auto hr = _Traits::CoInitialize(NULL);
         if (FAILED(hr))
         {
             throw win32_error(hr);
@@ -33,7 +33,7 @@ public:
 
     ~CoInitializer()
     {
-        _Traits::Uninitialize();
+        _Traits::CoUninitialize();
     }
 
 private:

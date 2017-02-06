@@ -13,7 +13,7 @@ static const LPCWSTR g_wszFileName = L"VSIXInstaller.exe";
 
 struct ErrorTraits
 {
-    static int __cdecl ShowMessage(
+    static int __cdecl ErrorShowMessage(
         _In_opt_ LPCWSTR lpText,
         _In_opt_ LPCWSTR lpCaption,
         _In_ UINT uType)
@@ -24,7 +24,7 @@ struct ErrorTraits
 
 struct IOTraits
 {
-    static bool __cdecl FileExists(_In_ LPCWSTR wszPath)
+    static bool __cdecl IOFileExists(_In_ LPCWSTR wszPath)
     {
         DWORD dwAttrib = ::GetFileAttributesW(wszPath);
 
@@ -32,25 +32,22 @@ struct IOTraits
     }
 };
 
-template <class _ErrorTraits, class _ResourcesTraits>
-void ShowError(_In_ Resources<_ResourcesTraits>& resources, _In_ bool quiet, _In_ DWORD nID, ...);
+template <class... Mixins>
+struct Traits : public Mixins...
+{
+    typedef Traits<CoInitializerTraits, CommandLineTraits, ErrorTraits, IOTraits, ProcessTraits, RegistryKeyTraits, ResourcesTraits> Default;
+};
 
-template <class _CoInitializerTraits, class _IOTraits>
+template <class _Traits>
+void ShowError(_In_ Resources<_Traits>& resources, _In_ bool quiet, _In_ DWORD nID, ...);
+
+template <class _Traits>
 std::wstring FromConfiguration() noexcept;
 
-template <class _RegistryKeyTraits>
+template <class _Traits>
 std::wstring FromRegistry(_In_ LPCWSTR wszVersion) noexcept;
 
-template
-<
-    class _CoInitializerTraits = CoInitializerTraits,
-    class _CommandLineTraits = CommandLineTraits,
-    class _ErrorTraits = ErrorTraits,
-    class _IOTraits = IOTraits,
-    class _ProcessTraits = ProcessTraits,
-    class _RegistryKeyTraits = RegistryKeyTraits,
-    class _ResourcesTraits = ResourcesTraits
->
+template <class _Traits = Traits<>::Default>
 int Run(
     _In_ HINSTANCE hInstance,
     _In_ LPWSTR lpCmdLine,
@@ -58,30 +55,30 @@ int Run(
 {
     using namespace std;
 
-    Resources<_ResourcesTraits> resources(hInstance);
+    Resources<_Traits> resources(hInstance);
     auto quiet = true;
 
     try
     {
         // Determine whether we should ever show UI.
-        CommandLine<_CommandLineTraits> args(lpCmdLine);
+        CommandLine<_Traits> args(lpCmdLine);
         quiet = args.IsQuiet() || SW_HIDE == nCmdShow;
 
         vector<function<wstring()>> lookups
         {
-            FromConfiguration<_CoInitializerTraits, _IOTraits>,
-            bind(FromRegistry<_RegistryKeyTraits>, L"14.0"),
-            bind(FromRegistry<_RegistryKeyTraits>, L"12.0"),
-            bind(FromRegistry<_RegistryKeyTraits>, L"11.0"),
-            bind(FromRegistry<_RegistryKeyTraits>, L"10.0"),
+            FromConfiguration<_Traits>,
+            bind(FromRegistry<_Traits>, L"14.0"),
+            bind(FromRegistry<_Traits>, L"12.0"),
+            bind(FromRegistry<_Traits>, L"11.0"),
+            bind(FromRegistry<_Traits>, L"10.0"),
         };
 
         for (const auto& lookup : lookups)
         {
             path path = lookup();
-            if (!path.empty() && _IOTraits::FileExists(path.append(g_wszFileName).c_str()))
+            if (!path.empty() && _Traits::IOFileExists(path.append(g_wszFileName).c_str()))
             {
-                Process<_ProcessTraits> p(nCmdShow, path.c_str(), lpCmdLine);
+                Process<_Traits> p(nCmdShow, path.c_str(), lpCmdLine);
                 p.Wait();
 
                 return p.GetExitCode();
@@ -89,27 +86,27 @@ int Run(
         }
 
         // We didn't find it so return an error.
-        ShowError<_ErrorTraits, _ResourcesTraits>(resources, quiet, IDS_NOTFOUND);
+        ShowError<_Traits>(resources, quiet, IDS_NOTFOUND);
         return ERROR_FILE_NOT_FOUND;
     }
     catch (system_error& ex)
     {
         const auto code = ex.code().value();
 
-        ShowError<_ErrorTraits, _ResourcesTraits>(resources, quiet, IDS_SYSTEM_ERROR, code, ex.what());
+        ShowError<_Traits>(resources, quiet, IDS_SYSTEM_ERROR, code, ex.what());
         return code;
     }
     catch (exception& ex)
     {
-        ShowError<_ErrorTraits, _ResourcesTraits>(resources, quiet, IDS_ERROR, ex.what());
+        ShowError<_Traits>(resources, quiet, IDS_ERROR, ex.what());
         return GENERIC_ERROR;
     }
 
     return GENERIC_ERROR;
 }
 
-template <class _ErrorTraits, class _ResourcesTraits>
-void ShowError(_In_ Resources<_ResourcesTraits>& resources, _In_ bool quiet, _In_ DWORD nID, ...)
+template <class _Traits>
+void ShowError(_In_ Resources<_Traits>& resources, _In_ bool quiet, _In_ DWORD nID, ...)
 {
     if (!quiet)
     {
@@ -120,16 +117,16 @@ void ShowError(_In_ Resources<_ResourcesTraits>& resources, _In_ bool quiet, _In
         const auto message = resources.FormatString(nID, args);
         va_end(args);
 
-        _ErrorTraits::ShowMessage(message.c_str(), caption.c_str(), MB_OK | MB_ICONERROR);
+        _Traits::ErrorShowMessage(message.c_str(), caption.c_str(), MB_OK | MB_ICONERROR);
     }
 }
 
-template <class _CoInitializerTraits, class _IOTraits>
+template <class _Traits>
 std::wstring FromConfiguration() noexcept
 {
     try
     {
-        CoInitializer<_CoInitializerTraits> init;
+        CoInitializer<_Traits> init;
 
         ISetupConfiguration2Ptr query;
         IEnumSetupInstancesPtr e;
@@ -161,7 +158,7 @@ std::wstring FromConfiguration() noexcept
             if (SUCCEEDED(hr))
             {
                 path path = (LPWSTR)enginePath;
-                if (!path.empty() && _IOTraits::FileExists(path.append(g_wszFileName).c_str()))
+                if (!path.empty() && _Traits::IOFileExists(path.append(g_wszFileName).c_str()))
                 {
                     return (LPWSTR)enginePath;
                 }
@@ -178,7 +175,7 @@ std::wstring FromConfiguration() noexcept
     return std::wstring();
 }
 
-template <class _RegistryKeyTraits>
+template <class _Traits>
 std::wstring FromRegistry(_In_ LPCWSTR wszVersion) noexcept
 {
     try
@@ -189,7 +186,7 @@ std::wstring FromRegistry(_In_ LPCWSTR wszVersion) noexcept
             throw win32_error(E_UNEXPECTED);
         }
 
-        RegistryKey<_RegistryKeyTraits> key(HKEY_LOCAL_MACHINE, wzPath);
+        RegistryKey<_Traits> key(HKEY_LOCAL_MACHINE, wzPath);
         return key.GetString(L"EnvironmentDirectory");
     }
     catch (...)

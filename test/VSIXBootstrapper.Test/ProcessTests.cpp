@@ -14,7 +14,7 @@ public:
     {
         struct TestTraits
         {
-            static BOOL __cdecl Create(
+            static BOOL __cdecl ProcessCreate(
                 _In_opt_ LPCWSTR lpApplicationName,
                 _Inout_opt_ LPWSTR lpCommandLine,
                 _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
@@ -32,7 +32,7 @@ public:
                 return FALSE;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl ProcessClose(_In_ HANDLE hObject)
             {
                 Assert::Fail(L"Unexpected");
 
@@ -47,7 +47,7 @@ public:
     {
         struct TestTraits
         {
-            static BOOL __cdecl Create(
+            static BOOL __cdecl ProcessCreate(
                 _In_opt_ LPCWSTR lpApplicationName,
                 _Inout_opt_ LPWSTR lpCommandLine,
                 _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
@@ -70,14 +70,14 @@ public:
                 return TRUE;
             }
 
-            static DWORD __cdecl Wait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
+            static DWORD __cdecl ProcessWait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
             {
                 Assert::AreEqual((HANDLE)1, hHandle);
 
                 return WAIT_OBJECT_0;
             }
 
-            static BOOL __cdecl GetExitCode(_In_ HANDLE hProcess, _Out_ LPDWORD lpExitCode)
+            static BOOL __cdecl ProcessGetExitCode(_In_ HANDLE hProcess, _Out_ LPDWORD lpExitCode)
             {
                 Assert::AreEqual((HANDLE)1, hProcess);
 
@@ -86,7 +86,7 @@ public:
                 return TRUE;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl ProcessClose(_In_ HANDLE hObject)
             {
                 Assert::AreEqual((HANDLE)1, hObject);
 
@@ -109,7 +109,7 @@ public:
     {
         struct TestTraits
         {
-            static BOOL __cdecl Create(
+            static BOOL __cdecl ProcessCreate(
                 _In_opt_ LPCWSTR lpApplicationName,
                 _Inout_opt_ LPWSTR lpCommandLine,
                 _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
@@ -132,14 +132,14 @@ public:
                 return TRUE;
             }
 
-            static DWORD __cdecl Wait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
+            static DWORD __cdecl ProcessWait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
             {
                 Assert::Fail(L"Unexpected");
 
                 return WAIT_OBJECT_0;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl ProcessClose(_In_ HANDLE hObject)
             {
                 Assert::Fail(L"Unexpected");
 

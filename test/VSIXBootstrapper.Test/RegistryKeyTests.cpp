@@ -14,7 +14,7 @@ public:
     {
         struct TestTraits
         {
-            static LSTATUS __cdecl OpenKey(
+            static LSTATUS __cdecl RegistryKeyOpen(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpSubKey,
                 _In_opt_ DWORD ulOptions,
@@ -30,7 +30,7 @@ public:
                 return ERROR_FILE_NOT_FOUND;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
             {
                 Assert::Fail(L"Unexpected");
 
@@ -45,7 +45,7 @@ public:
     {
         struct TestTraits
         {
-            static LSTATUS __cdecl OpenKey(
+            static LSTATUS __cdecl RegistryKeyOpen(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpSubKey,
                 _In_opt_ DWORD ulOptions,
@@ -61,7 +61,7 @@ public:
                 return ERROR_SUCCESS;
             }
 
-            static LSTATUS __cdecl QueryValue(
+            static LSTATUS __cdecl RegistryKeyQueryValue(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpValueName,
                 _Reserved_ LPDWORD lpReserved,
@@ -76,7 +76,7 @@ public:
                 return ERROR_FILE_NOT_FOUND;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
             {
                 Assert::AreEqual(1UL, (DWORD)hObject);
 
@@ -93,7 +93,7 @@ public:
     {
         struct TestTraits
         {
-            static LSTATUS __cdecl OpenKey(
+            static LSTATUS __cdecl RegistryKeyOpen(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpSubKey,
                 _In_opt_ DWORD ulOptions,
@@ -109,7 +109,7 @@ public:
                 return ERROR_SUCCESS;
             }
 
-            static LSTATUS __cdecl QueryValue(
+            static LSTATUS __cdecl RegistryKeyQueryValue(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpValueName,
                 _Reserved_ LPDWORD lpReserved,
@@ -130,7 +130,7 @@ public:
                 return ERROR_SUCCESS;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
             {
                 Assert::AreEqual(1UL, (DWORD)hObject);
 
@@ -147,7 +147,7 @@ public:
     {
         struct TestTraits
         {
-            static LSTATUS __cdecl OpenKey(
+            static LSTATUS __cdecl RegistryKeyOpen(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpSubKey,
                 _In_opt_ DWORD ulOptions,
@@ -163,7 +163,7 @@ public:
                 return ERROR_SUCCESS;
             }
 
-            static LSTATUS __cdecl QueryValue(
+            static LSTATUS __cdecl RegistryKeyQueryValue(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpValueName,
                 _Reserved_ LPDWORD lpReserved,
@@ -193,7 +193,7 @@ public:
                 return ERROR_SUCCESS;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
             {
                 Assert::AreEqual(1UL, (DWORD)hObject);
 

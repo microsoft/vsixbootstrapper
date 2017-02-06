@@ -7,12 +7,12 @@
 
 struct CommandLineTraits
 {
-    static LPWSTR* __cdecl Parse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumArgs)
+    static LPWSTR* __cdecl CommandLineParse(_In_ LPCWSTR lpCmdLine, _Out_ int *pNumArgs)
     {
         return ::CommandLineToArgvW(lpCmdLine, pNumArgs);
     }
 
-    static HLOCAL __cdecl Free(_In_ HLOCAL hMem)
+    static HLOCAL __cdecl CommandLineFree(_In_ HLOCAL hMem)
     {
         return ::LocalFree(hMem);
     }
@@ -33,7 +33,7 @@ public:
 
         int cArgs = 0;
 
-        m_rgwszArgs = _Traits::Parse(wszCommandLine, &cArgs);
+        m_rgwszArgs = _Traits::CommandLineParse(wszCommandLine, &cArgs);
         if (!m_rgwszArgs)
         {
             throw win32_error();
@@ -65,7 +65,7 @@ public:
     {
         if (m_rgwszArgs)
         {
-            _Traits::Free(m_rgwszArgs);
+            _Traits::CommandLineFree(m_rgwszArgs);
         }
     }
 

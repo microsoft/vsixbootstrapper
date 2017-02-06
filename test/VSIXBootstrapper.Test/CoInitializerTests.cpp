@@ -14,12 +14,12 @@ public:
     {
         struct TestTraits
         {
-            static HRESULT __cdecl Initialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
             {
                 return E_FAIL;
             }
 
-            static void __cdecl Uninitialize()
+            static void __cdecl CoUninitialize()
             {
                 Assert::Fail(L"Unexpected");
             }
@@ -33,13 +33,13 @@ public:
         static byte count = 0;
         struct TestTraits
         {
-            static HRESULT __stdcall Initialize(_In_ LPVOID)
+            static HRESULT __stdcall CoInitialize(_In_ LPVOID)
             {
                 count++;
                 return S_OK;
             }
 
-            static void __stdcall Uninitialize()
+            static void __stdcall CoUninitialize()
             {
                 count++;
             }

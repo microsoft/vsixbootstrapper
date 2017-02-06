@@ -19,7 +19,7 @@ public:
     {
         struct TestErrorTraits
         {
-            static int __cdecl ShowMessage(
+            static int __cdecl ErrorShowMessage(
                 _In_opt_ LPCWSTR lpText,
                 _In_opt_ LPCWSTR lpCaption,
                 _In_ UINT uType)
@@ -32,7 +32,7 @@ public:
 
         struct TestResourcesTraits
         {
-            static int __cdecl GetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
+            static int __cdecl ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 Assert::Fail(L"Unexpected");
 
@@ -40,15 +40,17 @@ public:
             }
         };
 
-        Resources<TestResourcesTraits> resources(NULL);
-        ShowError<TestErrorTraits, TestResourcesTraits>(resources, true, 0);
+        typedef Traits<TestErrorTraits, TestResourcesTraits> TestTraits;
+
+        Resources<TestTraits> resources(NULL);
+        ShowError<TestTraits>(resources, true, 0);
     }
 
     TEST_METHOD(VSIXBootstrapper_ShowError)
     {
         struct TestErrorTraits
         {
-            static int __cdecl ShowMessage(
+            static int __cdecl ErrorShowMessage(
                 _In_opt_ LPCWSTR lpText,
                 _In_opt_ LPCWSTR lpCaption,
                 _In_ UINT uType)
@@ -65,7 +67,7 @@ public:
 
         struct TestResourcesTraits
         {
-            static int __cdecl GetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
+            static int __cdecl ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 if (IDS_CAPTION == nID)
                 {
@@ -90,8 +92,10 @@ public:
             }
         };
 
-        Resources<TestResourcesTraits> resources(NULL);
-        ShowError<TestErrorTraits, TestResourcesTraits>(resources, false, 0);
+        typedef Traits<TestErrorTraits, TestResourcesTraits> TestTraits;
+
+        Resources<TestTraits> resources(NULL);
+        ShowError<TestTraits>(resources, false, 0);
 
         Assert::AreEqual(3, s_count);
     }
@@ -100,7 +104,7 @@ public:
     {
         struct TestCoInitializerTraits
         {
-            static HRESULT __cdecl Initialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
             {
                 s_count++;
 
@@ -108,7 +112,7 @@ public:
                 return E_FAIL;
             }
 
-            static void __cdecl Uninitialize()
+            static void __cdecl CoUninitialize()
             {
                 Assert::Fail(L"Unexpected");
             }
@@ -116,7 +120,7 @@ public:
 
         struct TestIOTraits
         {
-            static bool __cdecl FileExists(_In_ LPCWSTR wszPath)
+            static bool __cdecl IOFileExists(_In_ LPCWSTR wszPath)
             {
                 return CSTR_EQUAL == ::CompareStringW(LOCALE_INVARIANT, NORM_IGNORECASE, L"C:\\ShouldNotExist\\VSIXInstaller.exe", -1, wszPath, -1);
             }
@@ -124,7 +128,7 @@ public:
 
         struct TestRegistryKeyTraits
         {
-            static LSTATUS __cdecl OpenKey(
+            static LSTATUS __cdecl RegistryKeyOpen(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpSubKey,
                 _In_opt_ DWORD ulOptions,
@@ -146,7 +150,7 @@ public:
                 return ERROR_FILE_NOT_FOUND;
             }
 
-            static LSTATUS __cdecl QueryValue(
+            static LSTATUS __cdecl RegistryKeyQueryValue(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpValueName,
                 _Reserved_ LPDWORD lpReserved,
@@ -176,7 +180,7 @@ public:
                 return ERROR_SUCCESS;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
             {
                 Assert::AreEqual(1UL, (DWORD)hObject);
 
@@ -186,7 +190,7 @@ public:
 
         struct TestProcessTraits
         {
-            static BOOL __cdecl Create(
+            static BOOL __cdecl ProcessCreate(
                 _In_opt_ LPCWSTR lpApplicationName,
                 _Inout_opt_ LPWSTR lpCommandLine,
                 _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
@@ -210,7 +214,7 @@ public:
                 return TRUE;
             }
 
-            static DWORD __cdecl Wait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
+            static DWORD __cdecl ProcessWait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
             {
                 Assert::AreEqual((HANDLE)1, hHandle);
 
@@ -219,7 +223,7 @@ public:
                 return WAIT_OBJECT_0;
             }
 
-            static BOOL __cdecl GetExitCode(_In_ HANDLE hProcess, _Out_ LPDWORD lpExitCode)
+            static BOOL __cdecl ProcessGetExitCode(_In_ HANDLE hProcess, _Out_ LPDWORD lpExitCode)
             {
                 Assert::AreEqual((HANDLE)1, hProcess);
 
@@ -230,7 +234,7 @@ public:
                 return TRUE;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl ProcessClose(_In_ HANDLE hObject)
             {
                 Assert::AreEqual((HANDLE)1, hObject);
 
@@ -238,7 +242,9 @@ public:
             }
         };
 
-        auto dwExitCode = Run<TestCoInitializerTraits, CommandLineTraits, ErrorTraits, TestIOTraits, TestProcessTraits, TestRegistryKeyTraits, ResourcesTraits>(NULL, L"ignored", SW_NORMAL);
+        typedef Traits<TestCoInitializerTraits, CommandLineTraits, ErrorTraits, TestIOTraits, TestProcessTraits, TestRegistryKeyTraits, ResourcesTraits> TestTraits;
+
+        auto dwExitCode = Run<TestTraits>(NULL, L"ignored", SW_NORMAL);
 
         Assert::AreEqual<DWORD>(ERROR_SUCCESS, dwExitCode);
         Assert::AreEqual(8, s_count);
@@ -248,7 +254,7 @@ public:
     {
         struct TestCoInitializerTraits
         {
-            static HRESULT __cdecl Initialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
             {
                 s_count++;
 
@@ -256,7 +262,7 @@ public:
                 return E_FAIL;
             }
 
-            static void __cdecl Uninitialize()
+            static void __cdecl CoUninitialize()
             {
                 Assert::Fail(L"Unexpected");
             }
@@ -264,7 +270,7 @@ public:
 
         struct TestIOTraits
         {
-            static bool __cdecl FileExists(_In_ LPCWSTR wszPath)
+            static bool __cdecl IOFileExists(_In_ LPCWSTR wszPath)
             {
                 return CSTR_EQUAL == ::CompareStringW(LOCALE_INVARIANT, NORM_IGNORECASE, L"C:\\ShouldNotExist\\VSIXInstaller.exe", -1, wszPath, -1);
             }
@@ -272,7 +278,7 @@ public:
 
         struct TestRegistryKeyTraits
         {
-            static LSTATUS __cdecl OpenKey(
+            static LSTATUS __cdecl RegistryKeyOpen(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpSubKey,
                 _In_opt_ DWORD ulOptions,
@@ -294,7 +300,7 @@ public:
                 return ERROR_FILE_NOT_FOUND;
             }
 
-            static LSTATUS __cdecl QueryValue(
+            static LSTATUS __cdecl RegistryKeyQueryValue(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpValueName,
                 _Reserved_ LPDWORD lpReserved,
@@ -324,7 +330,7 @@ public:
                 return ERROR_SUCCESS;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
             {
                 Assert::AreEqual(1UL, (DWORD)hObject);
 
@@ -334,7 +340,7 @@ public:
 
         struct TestProcessTraits
         {
-            static BOOL __cdecl Create(
+            static BOOL __cdecl ProcessCreate(
                 _In_opt_ LPCWSTR lpApplicationName,
                 _Inout_opt_ LPWSTR lpCommandLine,
                 _In_opt_ LPSECURITY_ATTRIBUTES lpProcessAttributes,
@@ -358,7 +364,7 @@ public:
                 return TRUE;
             }
 
-            static DWORD __cdecl Wait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
+            static DWORD __cdecl ProcessWait(_In_ HANDLE hHandle, _In_ DWORD dwMilliseconds)
             {
                 Assert::AreEqual((HANDLE)1, hHandle);
 
@@ -367,7 +373,7 @@ public:
                 return WAIT_OBJECT_0;
             }
 
-            static BOOL __cdecl GetExitCode(_In_ HANDLE hProcess, _Out_ LPDWORD lpExitCode)
+            static BOOL __cdecl ProcessGetExitCode(_In_ HANDLE hProcess, _Out_ LPDWORD lpExitCode)
             {
                 Assert::AreEqual((HANDLE)1, hProcess);
 
@@ -378,7 +384,7 @@ public:
                 return TRUE;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl ProcessClose(_In_ HANDLE hObject)
             {
                 Assert::AreEqual((HANDLE)1, hObject);
 
@@ -386,7 +392,9 @@ public:
             }
         };
 
-        auto dwExitCode = Run<TestCoInitializerTraits, CommandLineTraits, ErrorTraits, TestIOTraits, TestProcessTraits, TestRegistryKeyTraits, ResourcesTraits>(NULL, L"ignored", SW_HIDE);
+        typedef Traits<TestCoInitializerTraits, CommandLineTraits, ErrorTraits, TestIOTraits, TestProcessTraits, TestRegistryKeyTraits, ResourcesTraits> TestTraits;
+
+        auto dwExitCode = Run<TestTraits>(NULL, L"ignored", SW_HIDE);
 
         Assert::AreEqual<DWORD>(ERROR_SUCCESS, dwExitCode);
         Assert::AreEqual(8, s_count);
@@ -396,7 +404,7 @@ public:
     {
         struct TestCoInitializerTraits
         {
-            static HRESULT __cdecl Initialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
             {
                 s_count++;
 
@@ -404,7 +412,7 @@ public:
                 return E_FAIL;
             }
 
-            static void __cdecl Uninitialize()
+            static void __cdecl CoUninitialize()
             {
                 Assert::Fail(L"Unexpected");
             }
@@ -412,7 +420,7 @@ public:
 
         struct TestErrorTraits
         {
-            static int __cdecl ShowMessage(
+            static int __cdecl ErrorShowMessage(
                 _In_opt_ LPCWSTR lpText,
                 _In_opt_ LPCWSTR lpCaption,
                 _In_ UINT uType)
@@ -428,7 +436,7 @@ public:
 
         struct TestIOTraits
         {
-            static bool __cdecl FileExists(_In_ LPCWSTR wszPath)
+            static bool __cdecl IOFileExists(_In_ LPCWSTR wszPath)
             {
                 return CSTR_EQUAL == ::CompareStringW(LOCALE_INVARIANT, NORM_IGNORECASE, L"C:\\ShouldNotExist\\VSIXInstaller.exe", -1, wszPath, -1);
             }
@@ -436,7 +444,7 @@ public:
 
         struct TestRegistryKeyTraits
         {
-            static LSTATUS __cdecl OpenKey(
+            static LSTATUS __cdecl RegistryKeyOpen(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpSubKey,
                 _In_opt_ DWORD ulOptions,
@@ -452,7 +460,7 @@ public:
                 return ERROR_FILE_NOT_FOUND;
             }
 
-            static LSTATUS __cdecl QueryValue(
+            static LSTATUS __cdecl RegistryKeyQueryValue(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpValueName,
                 _Reserved_ LPDWORD lpReserved,
@@ -466,7 +474,7 @@ public:
                 return ERROR_FILE_NOT_FOUND;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
             {
                 Assert::Fail(L"Unexpected");
 
@@ -476,7 +484,7 @@ public:
 
         struct TestResourcesTraits
         {
-            static int GetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
+            static int ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 if (IDS_CAPTION == nID)
                 {
@@ -499,7 +507,9 @@ public:
             };
         };
 
-        auto dwExitCode = Run<TestCoInitializerTraits, CommandLineTraits, TestErrorTraits, TestIOTraits, ProcessTraits, TestRegistryKeyTraits, TestResourcesTraits>(NULL, L"ignored", SW_NORMAL);
+        typedef Traits<TestCoInitializerTraits, CommandLineTraits, TestErrorTraits, TestIOTraits, ProcessTraits, TestRegistryKeyTraits, TestResourcesTraits> TestTraits;
+
+        auto dwExitCode = Run<TestTraits>(NULL, L"ignored", SW_NORMAL);
 
         Assert::AreEqual<DWORD>(ERROR_FILE_NOT_FOUND, dwExitCode);
         Assert::AreEqual(6, s_count);
@@ -509,7 +519,7 @@ public:
     {
         struct TestCoInitializerTraits
         {
-            static HRESULT __cdecl Initialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
             {
                 s_count++;
 
@@ -517,7 +527,7 @@ public:
                 return E_FAIL;
             }
 
-            static void __cdecl Uninitialize()
+            static void __cdecl CoUninitialize()
             {
                 Assert::Fail(L"Unexpected");
             }
@@ -525,7 +535,7 @@ public:
 
         struct TestErrorTraits
         {
-            static int __cdecl ShowMessage(
+            static int __cdecl ErrorShowMessage(
                 _In_opt_ LPCWSTR lpText,
                 _In_opt_ LPCWSTR lpCaption,
                 _In_ UINT uType)
@@ -538,7 +548,7 @@ public:
 
         struct TestIOTraits
         {
-            static bool __cdecl FileExists(_In_ LPCWSTR wszPath)
+            static bool __cdecl IOFileExists(_In_ LPCWSTR wszPath)
             {
                 return CSTR_EQUAL == ::CompareStringW(LOCALE_INVARIANT, NORM_IGNORECASE, L"C:\\ShouldNotExist\\VSIXInstaller.exe", -1, wszPath, -1);
             }
@@ -546,7 +556,7 @@ public:
 
         struct TestRegistryKeyTraits
         {
-            static LSTATUS __cdecl OpenKey(
+            static LSTATUS __cdecl RegistryKeyOpen(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpSubKey,
                 _In_opt_ DWORD ulOptions,
@@ -562,7 +572,7 @@ public:
                 return ERROR_FILE_NOT_FOUND;
             }
 
-            static LSTATUS __cdecl QueryValue(
+            static LSTATUS __cdecl RegistryKeyQueryValue(
                 _In_ HKEY hKey,
                 _In_opt_ LPCWSTR lpValueName,
                 _Reserved_ LPDWORD lpReserved,
@@ -576,7 +586,7 @@ public:
                 return ERROR_FILE_NOT_FOUND;
             }
 
-            static BOOL __cdecl Close(_In_ HANDLE hObject)
+            static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
             {
                 Assert::Fail(L"Unexpected");
 
@@ -586,7 +596,7 @@ public:
 
         struct TestResourcesTraits
         {
-            static int GetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
+            static int ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 if (IDS_CAPTION == nID)
                 {
@@ -609,7 +619,9 @@ public:
             };
         };
 
-        auto dwExitCode = Run<TestCoInitializerTraits, CommandLineTraits, TestErrorTraits, TestIOTraits, ProcessTraits, TestRegistryKeyTraits, TestResourcesTraits>(NULL, L"ignored", SW_HIDE);
+        typedef Traits<TestCoInitializerTraits, CommandLineTraits, TestErrorTraits, TestIOTraits, ProcessTraits, TestRegistryKeyTraits, TestResourcesTraits> TestTraits;
+
+        auto dwExitCode = Run<TestTraits>(NULL, L"ignored", SW_HIDE);
 
         Assert::AreEqual<DWORD>(ERROR_FILE_NOT_FOUND, dwExitCode);
         Assert::AreEqual(5, s_count);

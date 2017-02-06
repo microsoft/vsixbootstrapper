@@ -7,7 +7,7 @@
 
 struct ResourcesTraits
 {
-    static int __cdecl GetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
+    static int __cdecl ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
     {
         return ::LoadStringW(hInstance, nID, lpBuffer, cchBufferMax);
     }
@@ -30,7 +30,7 @@ public:
     std::wstring GetString(_In_ DWORD nID) const
     {
         LPCWSTR wsz = NULL;
-        auto ch = _Traits::GetString(m_hInstance, nID, (LPWSTR)&wsz, 0);
+        auto ch = _Traits::ResourcesGetString(m_hInstance, nID, (LPWSTR)&wsz, 0);
         if (!ch)
         {
             throw win32_error();

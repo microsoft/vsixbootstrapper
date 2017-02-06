@@ -7,7 +7,7 @@
 
 struct RegistryKeyTraits
 {
-    static LSTATUS __cdecl OpenKey(
+    static LSTATUS __cdecl RegistryKeyOpen(
         _In_ HKEY hKey,
         _In_opt_ LPCWSTR lpSubKey,
         _In_opt_ DWORD ulOptions,
@@ -18,7 +18,7 @@ struct RegistryKeyTraits
         return ::RegOpenKeyExW(hKey, lpSubKey, ulOptions, samDesired, phkResult);
     }
 
-    static LSTATUS __cdecl QueryValue(
+    static LSTATUS __cdecl RegistryKeyQueryValue(
         _In_ HKEY hKey,
         _In_opt_ LPCWSTR lpValueName,
         _Reserved_ LPDWORD lpReserved,
@@ -30,7 +30,7 @@ struct RegistryKeyTraits
         return ::RegQueryValueExW(hKey, lpValueName, lpReserved, lpType, lpData, lpcbData);
     }
 
-    static BOOL __cdecl Close(_In_ HANDLE hObject)
+    static BOOL __cdecl RegistryKeyClose(_In_ HANDLE hObject)
     {
         return ::CloseHandle(hObject);
     }
@@ -42,7 +42,7 @@ class RegistryKey
 public:
     RegistryKey(_In_ HKEY hk, _In_ LPCWSTR wszKey, _In_ REGSAM samDesired = KEY_QUERY_VALUE | KEY_WOW64_32KEY)
     {
-        auto err = _Traits::OpenKey(hk, wszKey, 0, samDesired, &m_hk);
+        auto err = _Traits::RegistryKeyOpen(hk, wszKey, 0, samDesired, &m_hk);
         if (err)
         {
             throw win32_error(err);
@@ -53,7 +53,7 @@ public:
     {
         if (m_hk)
         {
-            _Traits::Close(m_hk);
+            _Traits::RegistryKeyClose(m_hk);
         }
     }
 
@@ -62,7 +62,7 @@ public:
         DWORD cch = 0;
         DWORD dwType = 0;
 
-        auto err = _Traits::QueryValue(m_hk, wszValue, NULL, &dwType, NULL, &cch);
+        auto err = _Traits::RegistryKeyQueryValue(m_hk, wszValue, NULL, &dwType, NULL, &cch);
         if (err)
         {
             throw win32_error(err);
@@ -76,7 +76,7 @@ public:
         std::wstring value;
         value.resize((cch - sizeof(wchar_t)) / sizeof(wchar_t));
 
-        err = _Traits::QueryValue(m_hk, wszValue, NULL, NULL, (LPBYTE)&value[0], &cch);
+        err = _Traits::RegistryKeyQueryValue(m_hk, wszValue, NULL, NULL, (LPBYTE)&value[0], &cch);
         if (err)
         {
             throw win32_error(err);
