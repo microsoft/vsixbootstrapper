@@ -23,18 +23,12 @@ cache:
 before_build:
   - nuget restore
 
-after_build:
-  - 7z a bin\%CONFIGURATION%\Drop.zip %APPVEYOR_BUILD_FOLDER%\bin\%CONFIGURATION%\*.exe
-  - 7z a bin\%CONFIGURATION%\Drop.zip %APPVEYOR_BUILD_FOLDER%\bin\%CONFIGURATION%\*.dll
-  - 7z a bin\%CONFIGURATION%\Drop.zip %APPVEYOR_BUILD_FOLDER%\bin\%CONFIGURATION%\*.pdb
-
 test:
   assemblies:
     - '**\bin\$(configuration)\*.test.dll'
 
 artifacts:
   - path: bin\$(configuration)
-    name: Drop
     type: zip
 
 # vim: set ai et st=2 sts=2 sw=2:
