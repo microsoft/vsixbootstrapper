@@ -5,12 +5,26 @@
 
 #pragma once
 
+struct CoInitializerTraits
+{
+    static HRESULT __cdecl CoInitialize(_In_ LPVOID)
+    {
+        return ::CoInitialize(NULL);
+    }
+
+    static void __cdecl CoUninitialize()
+    {
+        return ::CoUninitialize();
+    }
+};
+
+template <class _Traits = CoInitializerTraits>
 class CoInitializer
 {
 public:
     CoInitializer()
     {
-        auto hr = ::CoInitialize(NULL);
+        auto hr = _Traits::CoInitialize(NULL);
         if (FAILED(hr))
         {
             throw win32_error(hr);
@@ -19,7 +33,7 @@ public:
 
     ~CoInitializer()
     {
-        ::CoUninitialize();
+        _Traits::CoUninitialize();
     }
 
 private:

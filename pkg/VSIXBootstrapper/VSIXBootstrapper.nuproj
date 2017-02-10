@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VSIXBootstrapper\VSIXBootstrapper.vcxproj">
+      <PackageDirectory>Tools</PackageDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\VSIXBootstrapper.props" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>8704fcb5-c4ca-4015-81aa-6b3aa577b3fb</ProjectGuid>
+  </PropertyGroup>
+  <Import Project="..\..\inc\Common.props" />
+  <PropertyGroup>
+    <NuProjPath Condition="Exists('$(SolutionDir)packages\NuProj.0.11.14-beta\tools\')">$(SolutionDir)packages\NuProj.0.11.14-beta\tools\</NuProjPath>
+    <NuProjPath Condition=" '$(NuProjPath)' == '' ">$(MSBuildExtensionsPath)\NuProj\</NuProjPath>
+    <VersionDependsOn>$(VersionDependsOn);GetNuPkgVersion</VersionDependsOn>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
+  <PropertyGroup Label="Configuration">
+    <Id>VSIXBootstrapper</Id>
+    <Version>1.0.0</Version>
+    <Title>VSIX Installer Bootstrapper</Title>
+    <Authors>Microsoft Corporation</Authors>
+    <Owners>Microsoft Corporation</Owners>
+    <Summary>VSIX Installer Bootstrapper</Summary>
+    <Description>An installer that can be chained with other packages to locate the latest VSIXInstaller.exe to use for installing VSIX extensions.</Description>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <ProjectUrl>https://github.com/Microsoft/vsixbootstrapper</ProjectUrl>
+    <LicenseUrl>https://github.com/Microsoft/vsixbootstrapper/raw/develop/LICENSE.txt</LicenseUrl>
+    <Copyright>Copyright (C) Microsoft Corporation. All rights reserved.</Copyright>
+    <Tags>VisualStudio VSIX Installer</Tags>
+    <DevelopmentDependency>true</DevelopmentDependency>
+  </PropertyGroup>
+  <Target Name="GetNuPkgVersion" DependsOnTargets="GetBuildVersion">
+    <PropertyGroup>
+      <Version>$(NuGetPackageVersion)</Version>
+    </PropertyGroup>
+  </Target>
+  <Import Project="$(NuProjPath)\NuProj.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets" Condition="Exists('..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets'))" />
+  </Target>
+</Project>

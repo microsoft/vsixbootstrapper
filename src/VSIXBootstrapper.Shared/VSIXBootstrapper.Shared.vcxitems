@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{2a3ea4c8-207c-4ab4-a74f-4640a529767e}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)VSIXBootstrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CoInitializer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CommandLine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Exceptions.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Process.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RegistryKey.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resources.h" />
+  </ItemGroup>
+</Project>
