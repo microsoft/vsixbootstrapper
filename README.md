@@ -52,6 +52,15 @@ To file issues or suggestions, please use the [Issues][] page for this project o
 
 This project is licensed under the [MIT license](LICENSE.txt).
 
+## Status
+
+This project uses a Git flow model releasing from the `master` branch with development based on and stabilize in the `develop` branch.
+
+Branch  | AppVeyor | VSTS
+------  | ------ | -------
+master  | [![build status: master](https://ci.appveyor.com/api/projects/status/8kj7280gctbttf3b/branch/master?svg=true)](https://ci.appveyor.com/project/heaths/vsixbootstrapper/branch/master) | ![build status: master](https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/5260/badge)
+develop | [![build status: develop](https://ci.appveyor.com/api/projects/status/8kj7280gctbttf3b/branch/develop?svg=true)](https://ci.appveyor.com/project/heaths/vsixbootstrapper/branch/develop)
+
   [issues]: https://github.com/Microsoft/vsixbootstrapper/issues
   [wiki]: https://github.com/Microsoft/vsixbootstrapper/wiki
   [wix]: http://wixtoolset.org
