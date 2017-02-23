@@ -19,7 +19,7 @@ This project is licensed under the [MIT license](LICENSE.txt).
 
 ## Status
 
-This project uses a Git flow model releasing from the `master` branch with development based on and stabilize in the `develop` branch.
+This project uses a Git flow model releasing from the `master` branch with development based on and stabilized in the `develop` branch.
 
 Branch  | AppVeyor | VSTS
 ------  | ------ | -------
