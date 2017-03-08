@@ -7,42 +7,7 @@ Package developers can install their VSIX extensions for Visual Studio using thi
 
 Other deployments may also benefit since they no longer have to find where _VSIXInstaller.exe_ is installed. The command line passed to _VSIXBootstrapper.exe_ is passed through to _VSIXInstaller.exe_.
 
-## Authoring
-
-An example using [WiX][] authoring to include a _.vsix_ package in the Burn chain itself.
-
-```xml
-<Bundle>
-  <Chain>
-    <ExePackage
-      Id="MyVSIX"
-      Name="packages\VSIXBootstrapper.exe"
-      PerMachine="yes"
-      InstallCommand="/q /admin /logFile:&quot;[WixBundleLog_MyVSIX]&quot; &quot;[WixBundleOriginalSource]\packages\MyVSIX.vsix&quot;"
-      UninstallCommand="/q /admin /logFile:&quot;[WixBundleLog_MyVSIX]&quot; /u:MyVSIX"
-      >
-      <PayloadGroupRef Id="MyVSIX"/>
-    </ExePackage>
-  </Chain>
-  <PayloadGroup Id="VSIXBootstrapper">
-    <Payload
-      SourceFile="packages\VSIXBootstrapper.exe"
-      Compressed="yes"
-      />
-  </PayloadGroup>
-  <PayloadGroup Id="MyVSIX">
-    <PayloadGroupRef Id="VSIXBootstrapper"/>
-    <Payload
-      SourceFile="packages\MyVSIX.vsix"
-      Compressed="yes"
-      />
-  </PayloadGroup>
-</Bundle>
-```
-
-Here both _VSIXBootstrapper.exe_ and _MyVSIX.vsix_ (with extension ID "MyVSIX") are compressed in the attached bundle container. Separate `PayloadGroup` elements were used so that you can share _VSIXBootstrapper.exe_ for multiple extensions. You could also specify the `DownloadUrl` attribute instead of compressing these to support web downloads and layouts.
-
-For more examples, please see the [Wiki][].
+See our [samples](https://github.com/Microsoft/vsixbootstrapper/wiki/Samples) for ideas how to use _VSIXBootstrapper.exe_.
 
 ## Feedback
 
@@ -54,7 +19,7 @@ This project is licensed under the [MIT license](LICENSE.txt).
 
 ## Status
 
-This project uses a Git flow model releasing from the `master` branch with development based on and stabilize in the `develop` branch.
+This project uses a Git flow model releasing from the `master` branch with development based on and stabilized in the `develop` branch.
 
 Branch  | AppVeyor | VSTS
 ------  | ------ | -------
@@ -62,5 +27,4 @@ master  | [![build status: master](https://ci.appveyor.com/api/projects/status/8
 develop | [![build status: develop](https://ci.appveyor.com/api/projects/status/8kj7280gctbttf3b/branch/develop?svg=true)](https://ci.appveyor.com/project/heaths/vsixbootstrapper/branch/develop)
 
   [issues]: https://github.com/Microsoft/vsixbootstrapper/issues
-  [wiki]: https://github.com/Microsoft/vsixbootstrapper/wiki
   [wix]: http://wixtoolset.org

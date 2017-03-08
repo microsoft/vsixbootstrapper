@@ -1,4 +1,7 @@
-﻿[CmdletBinding()]
+﻿# Copyright (C) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT license. See LICENSE.txt in the project root for license information.
+
+[CmdletBinding()]
 param (
     [Parameter(Mandatory = $true)]
     [string] $Token,
