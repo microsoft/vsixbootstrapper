@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props" Condition="Exists('..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|AnyCPU">
       <Configuration>Debug</Configuration>
@@ -24,7 +25,7 @@
   </PropertyGroup>
   <Import Project="..\..\inc\Common.props" />
   <PropertyGroup>
-    <NuProjPath Condition="Exists('$(SolutionDir)packages\NuProj.0.11.14-beta\tools\')">$(SolutionDir)packages\NuProj.0.11.14-beta\tools\</NuProjPath>
+    <NuProjPath Condition="Exists('$(SolutionDir)packages\NuProj.0.11.30\tools\')">$(SolutionDir)packages\NuProj.0.11.30\tools\</NuProjPath>
     <NuProjPath Condition=" '$(NuProjPath)' == '' ">$(MSBuildExtensionsPath)\NuProj\</NuProjPath>
     <VersionDependsOn>$(VersionDependsOn);GetNuPkgVersion</VersionDependsOn>
   </PropertyGroup>
@@ -51,14 +52,29 @@
       <Version>$(NuGetPackageVersion)</Version>
     </PropertyGroup>
   </Target>
+  <ItemGroup>
+    <SignFilesDependsOn Include="GetFilesToSign">
+      <Visible>false</Visible>
+    </SignFilesDependsOn>
+  </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets" Condition="Exists('..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets')" />
+    <Import Project="..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets" Condition="Exists('..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets'))" />
+    <Error Condition="!Exists('..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props'))" />
+    <Error Condition="!Exists('..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets'))" />
+  </Target>
+  <Target Name="GetFilesToSign" DependsOnTargets="CreatePackage">
+    <ItemGroup>
+      <FilesToSign Include="$(NuGetOutputPath);$(NuGetSymbolsOutputPath)">
+        <Authenticode>NuGet</Authenticode>
+      </FilesToSign>
+    </ItemGroup>
   </Target>
 </Project>
