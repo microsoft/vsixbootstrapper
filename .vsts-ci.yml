@@ -1,0 +1,60 @@
+queue:
+  name: MicroBuildV2Pool
+  timeoutInMinutes: 120
+  demands:
+  - msbuild
+  - visualstudio
+  - vstest
+
+variables:
+  solution: '**\*.sln'
+
+steps:
+- task: NuGetInstaller@0
+  inputs:
+    solution: $(solution)
+    versionSpec: 4.1.0
+
+- task: MicroBuildSigningPlugin@1
+  inputs:
+    signType: $(SignType)
+    esrpSigning: true
+
+- task: VSBuild@1
+  inputs:
+    solution: $(solution)
+    vsVersion: 14.0
+    configuration: $(BuildConfiguration)
+    platform: $(BuildPlatform)
+    maximumCpuCount: true
+
+- task: VSTest@2
+  inputs:
+    testAssemblyVer2: |
+     **\*test*.dll
+     !**\obj\**
+    searchFolder: $(Build.SourcesDirectory)\bin\$(BuildConfiguration)
+    vsTestVersion: 14.0
+    runInParallel: true
+    codeCoverageEnabled: true
+    platform: $(BuildPlatform)
+    configuration: $(BuildConfiguration)
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: $(Build.SourcesDirectory)
+    Contents: |
+     bin\$(BuildConfiguration)\**
+     tools\**
+    TargetFolder: $(Build.ArtifactStagingDirectory)\out
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: $(Build.ArtifactStagingDirectory)\out
+    ArtifactName: drop
+    publishLocation: Container
+
+- task: MicroBuildCleanup@1
+  condition: succeededOrFailed()
+
+# vim: set ai et st=2 sts=2 sw=2:
