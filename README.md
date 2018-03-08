@@ -22,9 +22,5 @@ To file issues or suggestions, please use the [Issues][] page for this project o
 
 This project is licensed under the [MIT license](LICENSE.txt).
 
-## Status
-
-This project uses a Git flow model releasing from the `master` branch with development based on and stabilized in the `develop` branch.
-
   [issues]: https://github.com/Microsoft/vsixbootstrapper/issues
   [wix]: http://wixtoolset.org
