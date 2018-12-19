@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "inc/build.yml": "azure-pipelines",
+        ".vsts-ci.yml": "azure-pipelines",
+        "azure-pipelines.yml": "azure-pipelines"
+    }
+}
