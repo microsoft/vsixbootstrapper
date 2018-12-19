@@ -1,7 +1,8 @@
 VSIX Installer Bootstrapper
 ===========================
 
-[![build status: master](https://ci.appveyor.com/api/projects/status/8kj7280gctbttf3b/branch/master?svg=true)](https://ci.appveyor.com/project/VisualStudioSetup/vsixbootstrapper)
+[![build status: master](https://dev.azure.com/azure-public/vssetup/_apis/build/status/Microsoft.vsixbootstrapper?branchName=master&label=master)](https://dev.azure.com/azure-public/vssetup/_build/latest?definitionId=19?branchName=master)
+[![build status: develop](https://dev.azure.com/azure-public/vssetup/_apis/build/status/Microsoft.vsixbootstrapper?branchName=develop&label=develop)](https://dev.azure.com/azure-public/vssetup/_build/latest?definitionId=19?branchName=develop)
 [![github release](https://img.shields.io/github/release/Microsoft/vsixbootstrapper.svg?logo=github)](https://github.com/Microsoft/vsixbootstrapper/releases/latest)
 [![github releases: all](https://img.shields.io/github/downloads/Microsoft/vsixbootstrapper/total.svg?logo=github&label=github)](https://github.com/Microsoft/vsixbootstrapper/releases)
 [![nuget: all](https://img.shields.io/nuget/dt/vsixbootstrapper.svg?label=nuget)](https://nuget.org/packages/vsixbootstrapper)
