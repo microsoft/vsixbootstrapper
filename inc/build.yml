@@ -1,0 +1,43 @@
+# Copyright (C) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT license. See LICENSE.txt in the project root for license information.
+
+parameters:
+  BuildConfiguration: Release
+  BuildPlatform: x86
+  TreatWarningsAsErrors: true
+
+steps:
+- task: NuGetToolInstaller@0
+  displayName: Install nuget
+  inputs:
+    versionSpec: '4.1.0'
+
+- task: NuGetCommand@2
+  displayName: Restore packages
+  inputs:
+    restoreSolution: '**\*.sln'
+    feedsToUse: config
+    nugetConfigPath: nuget.config
+
+- task: VSBuild@1
+  displayName: Build
+  inputs:
+    configuration: ${{ parameters.BuildConfiguration }}
+    platform: ${{ parameters.BuildPlatform }}
+    maximumCpuCount: true
+
+- task: VSTest@2
+  displayName: Test
+  inputs:
+    configuration: ${{ parameters.BuildConfiguration }}
+    platform: ${{ parameters.BuildPlatform }}
+    testAssemblyVer2: |
+      bin\$(BuildConfiguration)\*.test.dll
+    runInParallel: true
+    codeCoverageEnabled: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: bin\${{ parameters.BuildConfiguration }}
+    ArtifactName: drop
+    publishLocation: Container
