@@ -11,5 +11,6 @@ int WINAPI wWinMain(
     _In_ LPWSTR lpCmdLine,
     _In_ int nCmdShow)
 {
+    int i = 0;
     return Run<>(hInstance, lpCmdLine, nCmdShow);
 }
