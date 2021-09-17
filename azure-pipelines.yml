@@ -13,7 +13,8 @@ pr:
       - CONTRIBUTING.md
       - README.md
 
-pool: VSEngSS-MicroBuild2019-1ES
+pool:
+  vmImage: vs2017-win2016
 
 variables:
   BuildConfiguration: Release
