@@ -2,7 +2,7 @@
 # Licensed under the MIT license. See LICENSE.txt in the project root for license information.
 
 queue:
-  name: MicroBuildV2Pool
+  name: VSEngSS-MicroBuild2019-1ES
   timeoutInMinutes: 120
   demands:
   - msbuild
