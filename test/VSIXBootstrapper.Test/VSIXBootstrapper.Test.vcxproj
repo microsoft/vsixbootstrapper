@@ -16,7 +16,7 @@
     <ProjectGuid>{EEADDAC3-DDD5-4A28-BB13-B3B76682C1E1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>VSIXBootstrapper</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ProjectSubType>NativeUnitTestProject</ProjectSubType>
   </PropertyGroup>
   <Import Project="..\..\inc\Common.props" />
