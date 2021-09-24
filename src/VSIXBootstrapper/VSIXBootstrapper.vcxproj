@@ -16,7 +16,7 @@
     <ProjectGuid>{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>VSIXBootstrapper</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="..\..\inc\Common.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
