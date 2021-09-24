@@ -7,7 +7,7 @@
 
 struct CoInitializerTraits
 {
-    static HRESULT __cdecl CoInitialize(_In_ LPVOID)
+    static HRESULT __cdecl CoInitialize(_In_opt_ LPVOID)
     {
         return ::CoInitialize(NULL);
     }

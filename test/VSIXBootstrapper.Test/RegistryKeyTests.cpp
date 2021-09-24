@@ -122,9 +122,11 @@ public:
                 Assert::AreEqual(L"Value", lpValueName);
 
                 Assert::IsNotNull(lpType);
+                #pragma warning(suppress: 6011) // Assert ensures this isn't null
                 *lpType = REG_DWORD;
 
                 Assert::IsNotNull(lpcbData);
+                #pragma warning(suppress: 6011) // Assert ensures this isn't null
                 *lpcbData = 0;
 
                 return ERROR_SUCCESS;
@@ -183,7 +185,10 @@ public:
                 }
 
                 auto cch = wcslen(wsz);
-                *lpcbData = ++cch * sizeof(WCHAR);
+                if (lpcbData)
+                {
+                    *lpcbData = ++cch * sizeof(WCHAR);
+                }
 
                 if (lpData)
                 {

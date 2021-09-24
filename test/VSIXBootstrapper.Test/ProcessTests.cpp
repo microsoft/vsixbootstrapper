@@ -28,7 +28,6 @@ public:
             )
             {
                 Assert::AreEqual(L"\"C:\\ShouldNotExist.exe\" ignored", lpCommandLine);
-
                 return FALSE;
             }
 
