@@ -14,7 +14,7 @@ public:
     {
         struct TestTraits
         {
-            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_opt_ LPVOID)
             {
                 return E_FAIL;
             }
@@ -33,7 +33,7 @@ public:
         static byte count = 0;
         struct TestTraits
         {
-            static HRESULT __stdcall CoInitialize(_In_ LPVOID)
+            static HRESULT __stdcall CoInitialize(_In_opt_ LPVOID)
             {
                 count++;
                 return S_OK;

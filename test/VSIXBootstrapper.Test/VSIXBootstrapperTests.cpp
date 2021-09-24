@@ -104,7 +104,7 @@ public:
     {
         struct TestCoInitializerTraits
         {
-            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_opt_ LPVOID)
             {
                 s_count++;
 
@@ -170,7 +170,10 @@ public:
                 }
 
                 auto cch = wcslen(wsz);
-                *lpcbData = ++cch * sizeof(WCHAR);
+                if (lpcbData)
+                {
+                    *lpcbData = ++cch * sizeof(WCHAR);
+                }
 
                 if (lpData)
                 {
@@ -254,7 +257,7 @@ public:
     {
         struct TestCoInitializerTraits
         {
-            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_opt_ LPVOID)
             {
                 s_count++;
 
@@ -320,7 +323,10 @@ public:
                 }
 
                 auto cch = wcslen(wsz);
-                *lpcbData = ++cch * sizeof(WCHAR);
+                if (lpcbData)
+                {
+                    *lpcbData = ++cch * sizeof(WCHAR);
+                }
 
                 if (lpData)
                 {
@@ -404,7 +410,7 @@ public:
     {
         struct TestCoInitializerTraits
         {
-            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_opt_ LPVOID)
             {
                 s_count++;
 
@@ -519,7 +525,7 @@ public:
     {
         struct TestCoInitializerTraits
         {
-            static HRESULT __cdecl CoInitialize(_In_ LPVOID)
+            static HRESULT __cdecl CoInitialize(_In_opt_ LPVOID)
             {
                 s_count++;
 
