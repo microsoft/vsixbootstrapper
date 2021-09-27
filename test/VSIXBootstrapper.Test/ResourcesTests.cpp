@@ -14,6 +14,7 @@ public:
     {
         struct TestTraits
         {
+            #pragma warning(suppress: 6054) // Unexpected, so ignore that lpBuffer is not set
             static int ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 return 0;
@@ -47,6 +48,7 @@ private:
 
     struct TestStringTraits
     {
+        #pragma warning(suppress: 6054) // Static analysis is failing to detect that m_wsz will be null-terminated
         static int ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
         {
             ::memcpy(lpBuffer, &m_wsz, sizeof(LPWSTR));

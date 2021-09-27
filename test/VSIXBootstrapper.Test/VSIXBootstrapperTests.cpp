@@ -32,6 +32,7 @@ public:
 
         struct TestResourcesTraits
         {
+            #pragma warning(suppress: 6054) // Unreachable code, ignore the fact we didn't fill lpBuffer
             static int __cdecl ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 Assert::Fail(L"Unexpected");
@@ -67,6 +68,8 @@ public:
 
         struct TestResourcesTraits
         {
+            #pragma warning(suppress: 6054) // Unreachable code, ignore the fact we didn't fill lpBuffer
+            #pragma warning(suppress: 6385) // Static analysis is failing to recognize proper buffer size
             static int __cdecl ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 if (IDS_CAPTION == nID)
@@ -87,6 +90,8 @@ public:
                     ::memcpy(lpBuffer, &wsz, sizeof(LPWSTR));
                     return wcslen(wsz);
                 }
+
+                Assert::Fail(L"Unexpected");
 
                 return 0;
             }
@@ -177,6 +182,7 @@ public:
 
                 if (lpData)
                 {
+                    #pragma warning(suppress: 6386) // Static analysis is failing to recognize proper buffer size
                     wcscpy_s((LPWSTR)lpData, cch, wsz);
                 }
 
@@ -330,6 +336,7 @@ public:
 
                 if (lpData)
                 {
+                    #pragma warning(suppress: 6386) // Static analysis is failing to recognize proper buffer size
                     wcscpy_s((LPWSTR)lpData, cch, wsz);
                 }
 
@@ -490,6 +497,8 @@ public:
 
         struct TestResourcesTraits
         {
+            #pragma warning(suppress: 6054) // Unreachable code, ignore the fact we didn't fill lpBuffer
+            #pragma warning(suppress: 6385) // Static analysis is failing to recognize proper buffer size
             static int ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 if (IDS_CAPTION == nID)
@@ -602,6 +611,8 @@ public:
 
         struct TestResourcesTraits
         {
+            #pragma warning(suppress: 6054) // Unreachable code, ignore the fact we didn't fill lpBuffer
+            #pragma warning(suppress: 6385) // Static analysis is failing to recognize proper buffer size
             static int ResourcesGetString(__in_opt HINSTANCE hInstance, __in UINT nID, __out_ecount_part(cchBufferMax, return +1) LPWSTR lpBuffer, __in int cchBufferMax)
             {
                 if (IDS_CAPTION == nID)

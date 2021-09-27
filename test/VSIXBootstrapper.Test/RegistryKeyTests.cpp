@@ -192,6 +192,7 @@ public:
 
                 if (lpData)
                 {
+                    #pragma warning(suppress: 6386) // Static analysis is failing to recognize proper buffer size
                     wcscpy_s((LPWSTR)lpData, cch, wsz);
                 }
 

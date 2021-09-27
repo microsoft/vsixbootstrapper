@@ -17,7 +17,4 @@
 
 // Disable Prefast warnings
 #pragma warning(disable: 6101) // Returning uninitialied data. This is from test cases that fail if the code executes.
-#pragma warning(disable: 6054) // Buffer may not be null-terminated.
-#pragma warning(disable: 6385) // Reading extra data
-#pragma warning(disable: 6386) // Potential buffer overrun.
-#pragma warning(disable: 6387) // Potential input not matching expected.
+#pragma warning(disable: 6387) // Potential input not matching expected from SAL annotation. Tests don't always match SAL for expected fall-through cases.
