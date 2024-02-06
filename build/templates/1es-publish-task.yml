@@ -1,0 +1,11 @@
+parameters:
+  - name: path
+    type: string
+  - name: artifactName
+    type: string
+
+steps:
+  - task: 1ES.PublishPipelineArtifact@1
+    inputs:
+      targetPath: ${{ parameters.path }}
+      artifactName: ${{ parameters.artifactName }}

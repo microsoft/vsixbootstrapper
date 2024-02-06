@@ -12,8 +12,9 @@ queue:
 steps:
 - template: inc/build.yml
   parameters:
-      BuildConfiguration: $(BuildConfiguration)
-      BuildPlatform: $(BuildPlatform)
+    BuildConfiguration: $(BuildConfiguration)
+    BuildPlatform: $(BuildPlatform)
+    ArtifactPublishTemplate: /build/templates/ado-publish-task.yml@self
 
 - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
   displayName: Detect components
