@@ -5,6 +5,7 @@ parameters:
   BuildConfiguration: Release
   BuildPlatform: x86
   TreatWarningsAsErrors: true
+  PublishArtifactTemplate: /build/templates/ado-publish-task.yml@self
 
 steps:
 - task: NuGetToolInstaller@0
@@ -36,8 +37,7 @@ steps:
     runInParallel: true
     codeCoverageEnabled: true
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: bin\${{ parameters.BuildConfiguration }}
-    ArtifactName: drop
-    publishLocation: Container
+- template: ${{ parameters.PublishArtifactTemplate }}
+  parameters:
+    path: bin\${{ parameters.BuildConfiguration }}
+    artifactName: drop

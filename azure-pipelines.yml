@@ -21,7 +21,8 @@ variables:
   BuildPlatform: x86
 
 steps:
-- template: inc/build.yml
+- template: /build/templates/build.yml@self
   parameters:
-      BuildConfiguration: $(BuildConfiguration)
-      BuildPlatform: $(BuildPlatform)
+    BuildConfiguration: $(BuildConfiguration)
+    BuildPlatform: $(BuildPlatform)
+    PublishArtifactTemplate: /build/templates/ado-publish-task.yml@self 

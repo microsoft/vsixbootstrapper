@@ -1,0 +1,12 @@
+parameters:
+  - name: path
+    type: string
+  - name: artifactName
+    type: string
+
+steps:
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: ${{ parameters.path }}
+      ArtifactName: ${{ parameters.artifactName }}
+      publishLocation: Container
