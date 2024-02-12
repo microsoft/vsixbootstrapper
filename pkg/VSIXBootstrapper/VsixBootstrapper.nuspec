@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>VSIXBootstrapper</id>
+    <title>VSIX Installer Bootstrapper</title>
+    <version>$version$</version>
+    <summary>VSIX Installer Bootstrapper</summary>
+    <description>An installer that can be chained with other packages to locate the latest VSIXInstaller.exe to use for installing VSIX extensions.</description>
+    <releaseNotes></releaseNotes>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <projectUrl>https://github.com/Microsoft/vsixbootstrapper</projectUrl>
+    <licenseUrl>https://github.com/Microsoft/vsixbootstrapper/raw/develop/LICENSE.txt</licenseUrl>
+    <iconUrl>https://go.microsoft.com/fwlink/?linkid=839265</iconUrl>
+  </metadata>
+  <files>
+    <file src="$solutionDir$\bin\$configuration$\VSIXBootstrapper.exe" target="tools" />
+    <file src="build\VSIXBootstrapper.props" target="build" />
+  </files>
+</package>

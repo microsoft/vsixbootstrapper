@@ -35,6 +35,28 @@ steps:
     runInParallel: true
     codeCoverageEnabled: true
 
+- task: NuGetCommand@2
+  displayName: Package VsixBootstrapper.nupkg
+  inputs:
+    command: pack
+    packagesToPack: pkg\VsixBootstrapper\VsixBootstrapper.nuspec
+    configuration: ${{ parameters.BuildConfiguration }}
+    packDestination: $(Build.SourcesDirectory)\bin\${{ parameters.BuildConfiguration }}
+    buildProperties: solutionDir=$(Build.SourcesDirectory);version=$(NBGV_NuGetPackageVersion)
+
+- task: NuGetCommand@2
+  displayName: Restore VsixBootstrapper.signproj
+  inputs:
+    command: restore
+    restoreSolution: $(Build.SourcesDirectory)\pkg\VsixBootstrapper\VsixBootstrapper.signproj
+
+- task: VSBuild@1
+  displayName: Sign nupkg
+  inputs:
+    configuration: ${{ parameters.BuildConfiguration }}
+    platform: ${{ parameters.BuildPlatform }}
+    solution: $(Build.SourcesDirectory)\pkg\VsixBootstrapper\VsixBootstrapper.signproj
+
 - template: ${{ parameters.PublishArtifactTemplate }}
   parameters:
     path: bin\${{ parameters.BuildConfiguration }}

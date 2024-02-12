@@ -12,6 +12,8 @@
             "includeCommitId": {
                 "when": "nonPublicReleaseOnly"
             }
-        }
+        },
+        "setVersionVariables": true,
+        "setAllVariables": true
     }
 }
