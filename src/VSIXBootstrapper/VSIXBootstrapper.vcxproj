@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props" Condition="Exists('..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props')" />
+  <Import Project="..\..\packages\Microsoft.VisualStudioEng.MicroBuild.Core.1.0.0\build\Microsoft.VisualStudioEng.MicroBuild.Core.props" Condition="Exists('..\..\packages\Microsoft.VisualStudioEng.MicroBuild.Core.1.0.0\build\Microsoft.VisualStudioEng.MicroBuild.Core.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -16,20 +16,21 @@
     <ProjectGuid>{22FFC1AB-F3E2-4379-B26E-67D67E2A1067}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>VSIXBootstrapper</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <GenerateAssemblyVersionInfo>false</GenerateAssemblyVersionInfo>
   </PropertyGroup>
   <Import Project="..\..\inc\Common.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -118,19 +119,17 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(SolutionDir)inc\Common.cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets" Condition="Exists('..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets')" />
-    <Import Project="..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets" Condition="Exists('..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets')" />
-    <Import Project="..\..\packages\NuProj.Common.0.11.30\build\NuProj.Common.targets" Condition="Exists('..\..\packages\NuProj.Common.0.11.30\build\NuProj.Common.targets')" />
-    <Import Project="..\..\packages\Microsoft.VisualStudio.Setup.Configuration.Native.1.8.24\build\native\Microsoft.VisualStudio.Setup.Configuration.Native.targets" Condition="Exists('..\..\packages\Microsoft.VisualStudio.Setup.Configuration.Native.1.8.24\build\native\Microsoft.VisualStudio.Setup.Configuration.Native.targets')" />
+    <Import Project="..\..\packages\Nerdbank.GitVersioning.3.6.133\build\NerdBank.GitVersioning.targets" Condition="Exists('..\..\packages\Nerdbank.GitVersioning.3.6.133\build\NerdBank.GitVersioning.targets')" />
+    <Import Project="..\..\packages\Microsoft.VisualStudioEng.MicroBuild.Core.1.0.0\build\Microsoft.VisualStudioEng.MicroBuild.Core.targets" Condition="Exists('..\..\packages\Microsoft.VisualStudioEng.MicroBuild.Core.1.0.0\build\Microsoft.VisualStudioEng.MicroBuild.Core.targets')" />
+    <Import Project="..\..\packages\Microsoft.VisualStudio.Setup.Configuration.Native.3.8.2112\build\native\Microsoft.VisualStudio.Setup.Configuration.Native.targets" Condition="Exists('..\..\packages\Microsoft.VisualStudio.Setup.Configuration.Native.3.8.2112\build\native\Microsoft.VisualStudio.Setup.Configuration.Native.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Nerdbank.GitVersioning.1.5.62\build\NerdBank.GitVersioning.targets'))" />
-    <Error Condition="!Exists('..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props'))" />
-    <Error Condition="!Exists('..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.targets'))" />
-    <Error Condition="!Exists('..\..\packages\NuProj.Common.0.11.30\build\NuProj.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NuProj.Common.0.11.30\build\NuProj.Common.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.VisualStudio.Setup.Configuration.Native.1.8.24\build\native\Microsoft.VisualStudio.Setup.Configuration.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.VisualStudio.Setup.Configuration.Native.1.8.24\build\native\Microsoft.VisualStudio.Setup.Configuration.Native.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Nerdbank.GitVersioning.3.6.133\build\NerdBank.GitVersioning.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Nerdbank.GitVersioning.3.6.133\build\NerdBank.GitVersioning.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.VisualStudioEng.MicroBuild.Core.1.0.0\build\Microsoft.VisualStudioEng.MicroBuild.Core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.VisualStudioEng.MicroBuild.Core.1.0.0\build\Microsoft.VisualStudioEng.MicroBuild.Core.props'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.VisualStudioEng.MicroBuild.Core.1.0.0\build\Microsoft.VisualStudioEng.MicroBuild.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.VisualStudioEng.MicroBuild.Core.1.0.0\build\Microsoft.VisualStudioEng.MicroBuild.Core.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.VisualStudio.Setup.Configuration.Native.3.8.2112\build\native\Microsoft.VisualStudio.Setup.Configuration.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.VisualStudio.Setup.Configuration.Native.3.8.2112\build\native\Microsoft.VisualStudio.Setup.Configuration.Native.targets'))" />
   </Target>
 </Project>
