@@ -3,6 +3,12 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
+   <ClCompile>
+      <SDLCheck>true</SDLCheck>
+      <ControlFlowGuard>Guard</ControlFlowGuard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/ZH:SHA_256 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <Link>
       <AdditionalDependencies>shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
