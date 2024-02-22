@@ -34,6 +34,10 @@ extends:
         enabled: true
       prefast:
         enabled: true
+      tsa:
+        enabled: true
+        configFile: $(Build.SourcesDirectory)\.config\tsaoptions.json
+        onboard: false # We already onboarded
 
     stages:
       - stage: Compliance

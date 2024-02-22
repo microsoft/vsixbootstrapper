@@ -1,0 +1,9 @@
+{
+    "codebaseName": "VsixBootstrapper",
+    "instanceUrl": "https://devdiv.visualstudio.com/defaultcollection",
+    "projectName": "DevDiv",
+    "areaPath": "DevDiv\\VS Setup",
+    "iterationPath": "DevDiv",
+    "allTools": true
+  }
+  
