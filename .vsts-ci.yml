@@ -14,6 +14,9 @@ extends:
     pool:
       name: VSEngSS-MicroBuild2022-1ES
     sdl:
+      tsa:
+        enabled: true
+        configFile: $(Build.SourcesDirectory)\.config\tsaoptions.json
       policheck:
         enabled: true
       binskim:
