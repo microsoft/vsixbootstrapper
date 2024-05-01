@@ -72,7 +72,7 @@ extends:
                   softwareVersionNum: '2' # Must match the version of ApiScan tooling
                   toolVersion: Latest
                 env:
-                  AzureServicesAuthConnectionString: runAs=App;AppId=$(ApiScanClientId);TenantId=$(ApiScanTenant);AppKey=$(SetupAppApiScanSecret)
+                  AzureServicesAuthConnectionString: runAs=App;AppId=$(ApiScanClientId)
 
               - task: PublishSecurityAnalysisLogs@3
                 displayName: Publish 'SDLAnalysis-APIScan' artifact
