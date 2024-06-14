@@ -17,6 +17,7 @@ extends:
       tsa:
         enabled: true
         configFile: $(Build.SourcesDirectory)\.config\tsaoptions.json
+        onboard: false # No need to onboard since we have previously
       policheck:
         enabled: true
       binskim:
