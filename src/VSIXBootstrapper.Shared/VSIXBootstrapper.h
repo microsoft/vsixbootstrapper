@@ -5,7 +5,7 @@
 
 #pragma once
 
-using std::experimental::filesystem::v1::path;
+using std::filesystem::path;
 
 // Same generic error code VSIXInstaller.exe returns.
 #define GENERIC_ERROR 3001
