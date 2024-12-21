@@ -27,6 +27,7 @@ extends:
       binskim:
         enabled: true
         scanOutputDirectoryOnly: true
+        analyzeTargetGlob: +:f|$(Build.ArtifactStagingDirectory)\out\**;-:f|$(Build.ArtifactStagingDirectory)\out\**\VSIXBootstrapper.Test.*
       codeql:
         compiled:
           enabled: true
