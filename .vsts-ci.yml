@@ -23,7 +23,7 @@ extends:
       binskim:
         enabled: true
         scanOutputDirectoryOnly: true
-        analyzeTargetGlob: +:f|$(Build.ArtifactStagingDirectory)\out\**;-:f|$(Build.ArtifactStagingDirectory)\out\**\*.Test.*
+        analyzeTargetGlob: +:f|$(Build.ArtifactStagingDirectory)\out\**;-:f|$(Build.ArtifactStagingDirectory)\out\**\*.test.*
     stages:
       - stage: Build
         jobs:
