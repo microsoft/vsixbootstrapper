@@ -25,10 +25,10 @@ public:
             }
         };
 
-        #pragma warning(push)
-        #pragma warning(disable: 26444) // Ignore warning C26444: Don't try to declare a local variable with no name since it is intended for below lambda
+    #pragma warning(push)
+    #pragma warning(disable: 26444) // Ignore warning C26444: Don't try to declare a local variable with no name since it is intended for below lambda
         Assert::ExpectException<win32_error>([]() { CoInitializer<TestTraits>(); });
-        #pragma warning(pop)
+    #pragma warning(pop)
     }
 
     TEST_METHOD(CoInitializer_Unitializes)
