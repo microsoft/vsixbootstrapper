@@ -39,10 +39,10 @@ public:
             }
         };
 
-        #pragma warning(push)
-        #pragma warning(disable: 26444) // Ignore warning C26444: Don't try to declare a local variable with no name since it is intended for below lambda
+    #pragma warning(push)
+    #pragma warning(disable: 26444) // Ignore warning C26444: Don't try to declare a local variable with no name since it is intended for below lambda
         Assert::ExpectException<win32_error>([]() { Process<TestTraits>(SW_NORMAL, L"C:\\ShouldNotExist.exe", L"ignored"); });
-        #pragma warning(pop)
+    #pragma warning(pop)
     }
 
     TEST_METHOD(Process_Wait)
