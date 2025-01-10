@@ -48,10 +48,13 @@ public:
             }
         };
 
+    #pragma warning(push)
+    #pragma warning(disable: 26444) // Ignore warning C26444: Don't try to declare a local variable with no name since it is intended for initialization
         // CoInitializer must be in separate scope to test.
         {
             CoInitializer<TestTraits>();
         }
+    #pragma warning(pop)
 
         Assert::AreEqual<byte>(2, count);
     }
