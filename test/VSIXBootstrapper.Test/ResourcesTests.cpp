@@ -22,7 +22,11 @@ public:
         };
 
         Resources<TestTraits> sut(NULL);
+        
+    #pragma warning(push)
+    #pragma warning(disable: 26444) // Ignore warning C26444: Don't try to declare a local variable with no name since it is intended for below lambda
         Assert::ExpectException<win32_error>([&]() { sut.GetString(0); });
+    #pragma warning(pop)
     }
 
     TEST_METHOD(Resources_FormatString)
