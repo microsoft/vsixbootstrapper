@@ -23,7 +23,8 @@ extends:
       binskim:
         enabled: true
         scanOutputDirectoryOnly: true
-
+        analyzeTargetGlob: +:f|$(Build.SourcesDirectory)\bin\Release\*.exe;+:f|$(Build.SourcesDirectory)\bin\Release\*.dll;-:f|$(Build.SourcesDirectory)\bin\Release\*.test.*
+        
     stages:
       - stage: Build
         jobs:
