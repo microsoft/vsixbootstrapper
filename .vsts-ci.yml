@@ -23,7 +23,7 @@ extends:
       binskim:
         enabled: true
         scanOutputDirectoryOnly: true
-        analyzeTargetGlob: >-
+        analyzeTargetGlob: |
             +:f|$(Build.SourcesDirectory)\bin\Release\*.exe;
             +:f|$(Build.SourcesDirectory)\bin\Release\*.dll;
             -:f|$(Build.SourcesDirectory)\bin\Release\*.test.*;
