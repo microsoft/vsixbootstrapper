@@ -1,6 +1,9 @@
 # Copyright (C) Microsoft Corporation. All rights reserved.
 # Licensed under the MIT license. See LICENSE.txt in the project root for license information.
 
+variables:
+  SignType: Real
+
 resources:
   repositories:
     - repository: MicroBuildTemplate
@@ -34,6 +37,7 @@ extends:
                 signing:
                   enabled: true
                   signType: $(SignType)
+                  signWithProd: true
 
             steps:
               - template: /build/templates/build.yml@self
