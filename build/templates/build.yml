@@ -25,7 +25,7 @@ steps:
     platform: ${{ parameters.BuildPlatform }}
     maximumCpuCount: true
 
-- task: VSTest@2
+- task: VSTest@3
   displayName: Test
   inputs:
     configuration: ${{ parameters.BuildConfiguration }}
